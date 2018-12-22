@@ -1,28 +1,19 @@
-//if a card is facedown, flip it face up, or vice-versa
-function flip(cardObj) {
-	//SHOULD make absolutely nothing happen and log the cardObj
-	//WAS if (cardObj.facedown)
-	if (cardObj.facedown) {
-		cardObj.removeClass('facedown')
-	} else {
-		cardObj.facedown = true
-		cardObj.addClass('facedown')
-	}
-}
-
 //have the deck shuffled, then deal them out into the display
 function deal() {
 	var deck = shuffle(cardList)
 	var dealTemplate = ``
 	deck.forEach(function(card) {
-		dealTemplate += `${card.source}`
+		dealTemplate += 
+		`<div class="card">
+			<div class="front">${card.source}</div>
+			<div class="back">${card.source}</div>
+		</div>`
 	})
 	displayCards(dealTemplate)
 }
 
 //display the dealt cards
 function displayCards(cards) {
-
 	$('#gamespace').html(cards)
 }
 
@@ -49,11 +40,55 @@ function shuffle(arr) {
 	return arr
 }
 
+function compare(html1, html2) {
+	if(html1 === html2) {
+		return true
+	} else {
+		return false
+	}
+}
+
 deal()
 
 $(document).ready(function() {
-	$(document).find('i').on('click', function(e) {
-		flip($(this))
+	//to store the values of the cards
+	var storage = []
+	//when card is clicked, flip it
+	$('.card').flip({
+		trigger: 'manual'
+	})
+	//after it flips
+	$('.card').on('click', function(){
+		if(!$(this).hasClass('showing') && !$(this).hasClass('shown')) {
+			$(this).addClass('shown')
+			$(this).flip(true)
+			storage.push($(this).html())
+			$(this).addClass('showing')
+			//if they've clicked exactly two cards
+			if (storage.length === 2) {
+				//if the two htmls match
+				if(compare(storage[0], storage[1])) {
+					console.log(storage)
+					//pop twice (to clear out the array)
+					storage.pop()
+					storage.pop()
+					console.log('popped storage')
+					//then remove showing, because we flip showing
+					$('.showing').removeClass('showing')
+				} else {
+					storage.pop()
+					storage.pop()
+					setTimeout(function() {
+						$('.showing').flip(false)
+						console.log('tried to flip')
+						$('.showing').removeClass('showing')
+						$('.shown').removeClass('shown')
+					}, 1000)
+				}
+			}
+		} else {
+			console.log('it has it')
+		}
 	})
 	
 })

@@ -1,15 +1,29 @@
 html {box-sizing: border-box;}
 *, *:before, *:after {box-sizing: inherit;}
 
-.facedown {
+.card {
+	position: relative;
+	display: inline-block;
+}
+
+.front {
+	position: absolute;
+	z-index: 1;
+	backface-visibility: hidden;
+}
+
+.back {
+	position: absolute;
+	z-index: 0;
 	color: red;
+	backface-visibility: hidden;
 }
 
 #gamespace{
 	margin: 0 auto;
-	height: 500px;
-	width: 500px;
-	background-color: black;
+	height: 1000px;
+	width: 1000px;
+	background-color: blue;
 	font-size: 50px;
 	letter-spacing: 10px;
 	padding: 10px;
@@ -17,7 +31,8 @@ html {box-sizing: border-box;}
 i{
 	border: 1px solid red;
 	margin-right: 5px; 
-	padding:5px;
-	width: 50px;
-	height: 50px;
+	padding:20px;
+	width: 100px;
+	height: 100px;
+
 }
