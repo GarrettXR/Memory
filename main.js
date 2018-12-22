@@ -15,6 +15,14 @@ function deal() {
 //display the dealt cards
 function displayCards(cards) {
 	$('#gamespace').html(cards)
+	$('#gamespace').after(`<div id="scoreLives">
+		<div id="score">
+		</div>
+		<div id="lives">
+		</div>
+		</div>`
+	)
+	updateInfo()
 }
 
 //shuffle the deck
@@ -40,6 +48,7 @@ function shuffle(arr) {
 	return arr
 }
 
+//if they're the same card, their html will be exactly identical
 function compare(html1, html2) {
 	if(html1 === html2) {
 		return true
@@ -48,9 +57,32 @@ function compare(html1, html2) {
 	}
 }
 
+//if they've made nine matches
+function didTheyWin(score) {
+	if(score >= 9) {
+		window.open("memory-win.html", "_self")
+	}
+}
+
+//if they've run out of lives
+function didTheyLose(lives) {
+	if(lives <= 0) {
+		window.open("memory-lose.html", "_self")
+	}
+}
+
+//updates info into #score and #lives
+function updateInfo(health = 9, points = 0) {
+	$('#score').html(`Score: ${points}`)
+	$('#lives').html(`Lives: ${health}`)
+}
+
 deal()
 
 $(document).ready(function() {
+	//lives and score
+	var lives = 9
+	var score = 0
 	//to store the values of the cards
 	var storage = []
 	//when card is clicked, flip it
@@ -59,36 +91,49 @@ $(document).ready(function() {
 	})
 	//after it flips
 	$('.card').on('click', function(){
-		if(!$(this).hasClass('showing') && !$(this).hasClass('shown')) {
-			$(this).addClass('shown')
+		//if the card clicked is not showing and is not stayUp
+		if(!$(this).hasClass('showing') && !$(this).hasClass('stayUp')) {
+			//flip the card (face-down in terms of .flip() but face-up for our purposes)
 			$(this).flip(true)
+			//store the html of the card
 			storage.push($(this).html())
+			//set the cards flipped to be showing
 			$(this).addClass('showing')
 			//if they've clicked exactly two cards
 			if (storage.length === 2) {
 				//if the two htmls match
 				if(compare(storage[0], storage[1])) {
-					console.log(storage)
 					//pop twice (to clear out the array)
 					storage.pop()
 					storage.pop()
-					console.log('popped storage')
-					//then remove showing, because we flip showing
+					//add a stayUp class to currently showing cards
+					$('.showing').addClass('stayUp')
+					//remove showing from everything as a safety valve to prevent all the cards from being showing
 					$('.showing').removeClass('showing')
+					//turn off the ability to even flip things that are already stayUp
+					$('.stayUp').off('.flip')
+					//increment score and check to see if they won
+					score++
+					didTheyWin(score)
+					updateInfo(lives, score)
 				} else {
+					//pop twice (to clear out the array)
 					storage.pop()
 					storage.pop()
+					//take a second, letting the player see the card flipped, before flipping them both back over
 					setTimeout(function() {
 						$('.showing').flip(false)
-						console.log('tried to flip')
 						$('.showing').removeClass('showing')
-						$('.shown').removeClass('shown')
+						//decrement score then check to see if they lost 
+						//still in delay so they're not confused by the card not being revealed
+						lives--
+						didTheyLose(lives)
+						updateInfo(lives, score)
 					}, 1000)
 				}
 			}
 		} else {
-			console.log('it has it')
+			//do nothing
 		}
 	})
-	
 })
