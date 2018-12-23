@@ -1,15 +1,33 @@
 html {box-sizing: border-box;}
 *, *:before, *:after {box-sizing: inherit;}
 
+#gameplay{
+	background-image: url(https://derf9v1xhwwx1.cloudfront.net/image/upload/oth/FunimationStoreFront/1328034/Latvian/1328034_Latvian_ShowMasterKeyArt_df17787d-7178-e711-8175-020165574d09.jpg);
+	background-size: cover;
+	background-repeat: no-repeat;
+}
+
+#winpage{
+	background-image: url(https://d3idt3y1vhsqn9.cloudfront.net/wp-content/uploads/2015/11/DBK058.jpg);
+	background-size: cover;
+	background-repeat: no-repeat;
+}
+
 .card {
 	position: relative;
 	display: inline-block;
+	height: 137px;
+	width: 137px;
+	margin: 5px;
+	border-radius: 10px;
 }
 
 .front {
 	position: absolute;
 	z-index: 1;
 	backface-visibility: hidden;
+	background-color: orange;
+	border-radius: 10px;
 }
 
 .back {
@@ -17,27 +35,108 @@ html {box-sizing: border-box;}
 	z-index: 0;
 	color: red;
 	backface-visibility: hidden;
+	background-color: white;
+	border-radius: 10px;
 }
 
 #gamespace{
 	margin: 0 auto;
-	height: 500px;
+	height: 490px;
 	width: 1000px;
-	background-color: blue;
 	font-size: 50px;
 	letter-spacing: 10px;
 	padding: 10px;
+	display:flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
 }
 
-#scoreLives {
+#scoreLives{
 	position: absolute;
 }
 
-i{
-	border: 1px solid red;
-	margin-right: 5px; 
-	padding:30px;
+img{
+	border: 2px solid blue; 
+	padding:20px;
 	width: 137px;
 	height: 137px;
+	border-radius: 10px;
+}
 
+#score{
+	font-family: Impact, Charcoal, sans-serif;
+	font-size: 30px;
+	margin-left: 1000px;
+}
+
+#lives{
+	font-family: Impact, Charcoal, sans-serif;
+	font-size: 30px;
+	margin-left: 1000px;
+}
+
+.win{
+	font-size: 200px;
+	font-family: Impact, Charcoal, sans-serif;
+	letter-spacing: 5px;
+	margin:0 auto;
+	color: orange;
+}
+
+.tryAgain{
+	height: 100px;
+	width: 400px;
+	border-radius: 10px;
+	font-size:50px;
+	background-color: black;
+	color: orange;
+	border: none;
+}
+
+#start{
+	background-image: url(http://www.mulierchile.com/dragon-ball-background/dragon-ball-background-006.jpg);
+	background-size: cover;
+	background-repeat: no-repeat;
+}
+
+#newGameTitle{
+	letter-spacing: 0;
+
+	
+}
+
+.title{
+	padding: 0;
+	width:500px;
+}
+
+.mem{
+	display: flex;
+	flex-direction: column;
+}
+
+#newGameButton{
+	height: 100px;
+	border-radius: 10px;
+	font-size: 50px;
+	color: white;
+	background-color: black;
+}
+
+h1{
+	margin: 0px;
+	margin-bottom: 100px;
+	font-family: Impact, Charcoal, sans-serif;
+}
+
+#lose{
+	background-image: url(https://fsmedia.imgix.net/df/31/01/75/3b41/45e4/873e/7c4cd155798a/yamcha.jpeg?rect=0%2C62%2C720%2C359&dpr=2&auto=format%2Ccompress&w=650);
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-color: orange;
+}
+
+#loser{
+	font-size: 100px;
+	
 }

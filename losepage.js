@@ -1,6 +1,6 @@
 function displayLoss() {
 	var lossTemplate = `
-	<h1>You Lose!</h1>
+	<h1 id="loser">You Lose!</h1>
 	<button type="button" class="tryAgain">Try Again</button>
 	`
 

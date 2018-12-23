@@ -1,6 +1,7 @@
 function displayWin() {
 	var winTemplate = `
-	<h1>You Win!</h1>
+	<h1 class="win">You Win!</h1>
+
 	<button type="button" class="tryAgain">Try Again</button>
 	`
 
